@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package md5;
 import java.nio.*;
+import java.util.Scanner;
 
+/*
+*   Created by Rosetta
+*   Recreated by Logesh B, Logesh D
+*
+*   The below program works only for input length < 56
+*/
 
-
-public class MD5 {
+public class Md5 {
     private static final int INIT_A = 0x67452301;
     private static final int INIT_B = 0xEFCDAB89;
     private static final int INIT_C = 0x98BADCFE;
@@ -28,21 +28,27 @@ public class MD5 {
                                     };
 
     public static void main(String[] args) {
-        String plainText = "abcdefghij";
+        Scanner sc = new Scanner(System.in);
+        String plainText = sc.nextLine();
+        //String plainText = "geeksforgeeks";
+        
         int len = plainText.length();
         
-        //Convert into 64-bit format & fill data for 56th & len-th position
+        //Convert into 64-byte format & fill data for len-th & 56th byte
         byte[] TotalMessage = new byte[64];
         for(int i=0; i < len; i++)
             TotalMessage[i] = (byte)plainText.charAt(i);
         
         TotalMessage[len] = (byte)0x80; //10000000
-        TotalMessage[56] = (byte)(len * 8);
+       
+        byte[] temp = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(len * 8).array();
+        for(int i=0; i<8; i++)
+            TotalMessage[56 + i] = temp[i];
         
-        //Convert 64-bit data to 4 * 16-bit data
+        //Convert 64-byte data to 4 * 16-byte data
         int X[] = new int[16];
         for(int i=0, k=0; i<16; i++) {
-            byte[] temp = new byte[4];
+            temp = new byte[4];
             
             for(int j=0; j<4; j++)
                 temp[j] = TotalMessage[k++];
@@ -61,7 +67,7 @@ public class MD5 {
         int c = INIT_C;
         int d = INIT_D;
 
-        //64 equals 4 rounds * 16-bit data
+        //64 equals 4 rounds * 16-byte data
         for(int i=0; i < 64; i++) {
             int div16 = i / 16;
             int f = 0;
@@ -86,12 +92,11 @@ public class MD5 {
             }
             
             //Interchange values
-            //temp = b + (a + g(b,c,d) + X[k] + T[i]) <<< s (formula)
-            int temp = b + Integer.rotateLeft(a + f + X[k] + T[i], S[i]);
+            int tmp = b + Integer.rotateLeft(a + f + X[k] + T[i], S[i]);
             a = d;
             d = c;
             c = b;
-            b = temp;
+            b = tmp;
         }
         
         a += INIT_A;
@@ -111,6 +116,3 @@ public class MD5 {
             System.out.print(String.format("%02X", encText[i]));
     }
 }
-
-
-
