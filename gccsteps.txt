@@ -221,7 +221,7 @@ in the vm,terminal la
 >sudo apt-get install virtualbox-guest-utils
 >mkdir GUEST_SHARE
 >sudo mount -t vboxsf (nameofthefolderinwindows) GUEST_SHARE
-
+>sudo adduser (vmname) vboxsf
 
 sudo apt-get install default-jdk
 
