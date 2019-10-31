@@ -263,6 +263,9 @@ export PATH=$PATH:$HADOOP_HOME/sbin
 #HADOOP VARIABLES END
 
 source ~/.bashrc
+put all property tag inside the configuration tag
+
+
 
 sudo nano /usr/local/hadoop/etc/hadoop/core-site.xml
 <property>
