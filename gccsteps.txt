@@ -142,7 +142,7 @@ Exercise 6 :
 	> (unzip (anyname).zip)
 	Open the eucarc file and note down ec2_URL, ec2_accessKey and ec2_secretkey
 	> euca-create-volume -U ec2_URL -I ec2_accessKey -S ec2_secretKey --size 1 -z cluster1
-	> euca-describe-volume -U ec2_URL -I ec2_accessKey -S ec2_secretKey
+	> euca-describe-volumes -U ec2_URL -I ec2_accessKey -S ec2_secretKey
 
 Exercise 7 : OpenNebula
 
