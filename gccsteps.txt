@@ -94,11 +94,11 @@ Exercise 3 & 4 & 5 :
 	for remote login without password 
 	In VM2,
 	> ssh-keygen -t rsa
-	> cd /
-	> cd home/username
-	> cd .ssh
+	> cd ~/.ssh
+	> ls
 	> chmod 700 id_rsa.pub
 	> cp id_rsa.pub known_hosts
+	>cd\
 	> ssh-copy-id usernameVM1@ipofVM1
 	
 	
